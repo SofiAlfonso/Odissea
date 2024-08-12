@@ -3,9 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Odissea</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,7 +30,8 @@
             margin-bottom: 20px;
         }
         header img {
-            height: 50px;
+            height: 70px;
+            width: 70px;
         }
         h1 {
             font-size: 24px;
@@ -78,7 +79,7 @@
 <body>
     <div class="container">
         <header>
-            <img src="{% static 'images/logo.jpeg' %}" alt="Logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" >
         </header>
         <div class="form-group">
             <label for="inputText">Texto para traducir:</label>
@@ -95,12 +96,5 @@
             &copy; 2024 Odissea
         </footer>
     </div>
-    <script>
-        document.getElementById('translateButton').addEventListener('click', () => {
-            // Aquí puedes agregar la lógica para la traducción
-            const inputText = document.getElementById('inputText').value;
-            document.getElementById('outputText').value = `Texto traducido para: "${inputText}"`; // Simulación de traducción
-        });
-    </script>
 </body>
 </html>
