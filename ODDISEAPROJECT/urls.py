@@ -20,5 +20,6 @@ from translator import views as translator_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', translator_views.home,),
+    path('home/', translator_views.home,name="home"),
+    path('',translator_views.register, name="register")
 ]
