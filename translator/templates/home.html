@@ -30,8 +30,8 @@
             margin-bottom: 20px;
         }
         header img {
-            height: 70px;
-            width: 70px;
+            height: 80px;
+            width: 80px;
         }
         h1 {
             font-size: 24px;
@@ -39,6 +39,8 @@
         }
         .form-group {
             margin-bottom: 20px;
+            align-items: center;
+            padding-right:2% ;
         }
         .form-group label {
             display: block;
@@ -58,7 +60,7 @@
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #007bff;
+            background-color: #d409ab;
             color: #ffffff;
             border: none;
             border-radius: 4px;
@@ -67,12 +69,30 @@
             transition: background-color 0.3s ease;
         }
         .form-group button:hover {
-            background-color: #0056b3;
+            background-color: #a2168b;
         }
         footer {
             text-align: center;
             font-size: 14px;
             color: #888;
+        }
+        header h1
+        {
+            text-align: center;
+            padding-right: 20%;
+        }
+        header button
+        {
+            background-color: #d410ad;
+            border-style: hidden;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            border-radius: 10%;
+            height: 60px;
+            color: #ffffff;
+        }
+        header button hover
+        {
+            background-color: #a2168b 
         }
     </style>
 </head>
@@ -80,6 +100,9 @@
     <div class="container">
         <header>
             <img src="{% static 'images/logo.png' %}" alt="Logo" >
+            <h1 font="sans-serif">Cada lengua es una nueva Odisea</h1>
+            <a href="{% url 'logout' %}"><button> Cerrar Sesión</button></a>
+        
         </header>
         <div class="form-group">
             <label for="inputText">Texto para traducir:</label>
@@ -96,5 +119,10 @@
             &copy; 2024 Odissea
         </footer>
     </div>
+    {% if not form.errors %}
+    <script >
+        alert ("Sesión iniciada correctamente")
+    </script>
+    {% endif %}
 </body>
 </html>

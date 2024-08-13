@@ -18,8 +18,12 @@ from django.urls import path
 from translator import views as translator_views
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', translator_views.home,name="home"),
-    path('',translator_views.register, name="register")
+    path('home/', translator_views.home, name="home"),
+    path('register/',translator_views.register, name="register"),
+    path('',translator_views.custom_login, name='login'),
+    path('logout/', translator_views.logout_view, name='logout'),
+
 ]

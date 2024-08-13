@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Registro</title>
 </head>
 <body>
     <style>
@@ -56,7 +56,7 @@
         {
             font-family: Arial, Helvetica, sans-serif;
             text-align: center;
-            padding-top: 20%;
+            padding-top: 5%;
         }
 
     </style>
@@ -67,7 +67,7 @@
     <form method="POST">
         
         {%csrf_token%} 
-        <div class="container">
+        <div class="container" >
             <div class="form-group">
                 <label for="name">Nombre: </label><br>
                 <input type="text" name="name" required><br><br>
@@ -79,7 +79,7 @@
                 <input type="text" name="username" required><br><br>
     
                 <label for="password">Contraseña: </label><br>
-                <input type="text" name="password" required><br><br>
+                <input type="password" name="password" required><br><br>
     
                 <label for="origin_country">País de origen: </label>
                 <select name="origin_country">
@@ -98,8 +98,7 @@
                 
                 </select><br><br><br>
     
-
-                <button  type="submit">Register</button>
+                 <button  type="submit">Registrarse</button>
                   
             </div>
         </div> 

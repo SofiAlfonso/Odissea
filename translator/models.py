@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password,check_password
 
 # Create your models here.
 
@@ -19,7 +20,7 @@ class LanguageChoices(models.TextChoices):
 class Register (models.Model):
     name = models.CharField (max_length=100,help_text= "Ingrese su nombre completo")
     email= models.EmailField(help_text="Ingrese su correo electrónico")
-    username= models.CharField(max_length=150, unique=True,help_text="Ingrese un nombre de usuario", primary_key=True)
+    username= models.CharField(max_length=100, unique=True,help_text="Ingrese un nombre de usuario")
     password= models.CharField(max_length=128, help_text="Ingrese su contraseña")
     origin_country= models.CharField(max_length=2, choices=CountryChoices.choices, default=CountryChoices.COLOMBIA)
     origin_language=models.CharField(max_length=2,choices=LanguageChoices.choices,default=LanguageChoices.INGLES )
