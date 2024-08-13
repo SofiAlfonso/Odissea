@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password,check_password
 
 # Create your models here.
 
-#Modelo para el registro de usuarios
+# Opciones de país
 class CountryChoices(models.TextChoices):
     COLOMBIA = 'CO', 'Colombia'
     PANAMA = 'PA', 'Panamá'
@@ -11,12 +11,13 @@ class CountryChoices(models.TextChoices):
     USA = 'US', 'Estados Unidos'
     CANADA = 'CA', 'Canadá'
 
+# Opciones de lenguaje
 class LanguageChoices(models.TextChoices):
     EPAÑOL= 'ES', 'Español'
     INGLES= 'EN', 'Inglés'
     FRANCES= 'FR', 'Frances'
 
-
+#Modelo de registro (tabala en la base de datos)
 class Register (models.Model):
     name = models.CharField (max_length=100,help_text= "Ingrese su nombre completo")
     email= models.EmailField(help_text="Ingrese su correo electrónico")
