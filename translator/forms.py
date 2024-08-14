@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 #Formulario para el registro
 class RegisterForm(forms.ModelForm):
     class Meta:
-        model= Register
+        model= Register #Modelo del cual trae los datos
         fields=[
             'name',
             'username',

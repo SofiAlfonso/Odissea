@@ -9,9 +9,9 @@ from django.urls import reverse
 
 #Vista de la página principal
 def home(request):
-    if not request.session.get('usuario_autenticado'):
-        login_url=reverse('login')
-        return redirect(login_url)
+    if not request.session.get('usuario_autenticado'): #Recuperación de dato sobre el inicio de sesión de un usuario
+        login_url=reverse('login') # Acceso al login url
+        return redirect(login_url) # redireccionando al login
     return render(request, 'home.html')
 
 #vista de la página de registro
@@ -54,8 +54,8 @@ def custom_login(request):
                 # Comparar la contraseña del formulario con la de la base de datos (contra sin encriptación)
                 if user.password==password:
                     # Autenticación exitosa
-                    request.session['usuario_autenticado'] = True
-                    request.session['user_id'] = user.id
+                    request.session['usuario_autenticado'] = True 
+                    request.session['user_id'] = user.id #id del usuario en la sesión
                     return redirect('home')
                 else:
                     #contrseña incorrecta

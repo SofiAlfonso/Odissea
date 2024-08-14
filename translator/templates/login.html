@@ -68,9 +68,9 @@
         <h2>Inicio de sesión</h2>
     </header>
     <form method="POST">
-        {% csrf_token %}
+        {% csrf_token %} <!-- Token de seguridad para la comunicación post del formulario-->
 
-        {{ form.as_p }}
+        {{ form.as_p }}<!--Plantilla de django para formularios, renderiza los labels e inputs dentro de <p> (párrafos)-->
         <button type="submit">Iniciar Sesión</button>
     </form>
     <a href="{% url 'register' %}"> Registrarse </a>
