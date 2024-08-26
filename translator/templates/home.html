@@ -104,25 +104,36 @@
             <a href="{% url 'logout' %}"><button> Cerrar Sesión</button></a>
         
         </header>
-        <div class="form-group">
-            <label for="inputText">Texto para traducir:</label>
-            <textarea id="inputText" placeholder="Escribe el texto aquí..."></textarea>
-        </div>
-        <div class="form-group">
-            <label for="outputText">Texto traducido:</label>
-            <textarea id="outputText" placeholder="El texto traducido aparecerá aquí..." readonly></textarea>
-        </div>
-        <div class="form-group">
-            <button id="translateButton">Traducir</button>
-        </div>
+        <form action="" >
+            <div class="left">
+                <label for="destination_language">Lengua de destino: </label>
+                <select name="destination_language">
+                    <option value="en">Inglés</option>
+                    <option value="fr">Frances</option>
+                    <option value="es">Español</option>
+                </select><br><br><br>
+            </div>
+            <div class="right">
+                <label for="origin_language">Lengua de origen: {{src}} </label><br><br><br>
+            </div>
+
+            <div class="form-group">
+                <label for="inputText">Texto para traducir:</label>
+                <textarea id="inputText" placeholder="Escribe el texto aquí..." name="inputText">{{text}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="outputText">Texto traducido:</label>
+                <textarea id="outputText" placeholder="El texto traducido aparecerá aquí..." readonly name="outputText">{{totext}}</textarea>
+            </div>
+            <div class="form-group">
+                <button id="translateButton">Traducir</button>
+            </div>
+        </form>
+       
         <footer>
             &copy; 2024 Odissea
         </footer>
     </div>
-    {% if not form.errors %}
-    <script >
-        alert ("Sesión iniciada correctamente")
-    </script>
-    {% endif %}
+  
 </body>
 </html>

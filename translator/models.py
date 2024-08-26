@@ -13,9 +13,9 @@ class CountryChoices(models.TextChoices):
 
 # Opciones de lenguaje
 class LanguageChoices(models.TextChoices):
-    EPAÑOL= 'ES', 'Español'
-    INGLES= 'EN', 'Inglés'
-    FRANCES= 'FR', 'Frances'
+    EPAÑOL= 'es', 'Español'
+    INGLES= 'en', 'Inglés'
+    FRANCES= 'fr', 'Frances'
 
 #Modelo de registro (tabala en la base de datos)
 class Register (models.Model):
