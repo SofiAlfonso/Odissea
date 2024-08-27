@@ -25,6 +25,7 @@ def home(request):
     text= request.GET.get('inputText')
     print(dest)
     print(src)
+    print(text)
     if text: 
         totext= tt.translate(src, dest, text)
     return render(request, 'home.html',{'totext':totext,'text':text,'src':src.upper()})
