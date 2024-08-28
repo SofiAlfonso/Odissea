@@ -63,45 +63,12 @@
     <header>
         <h2>Registro</h2>
     </header>
-    
-    <form method="POST">
-        
-        {%csrf_token%} 
-        <div class="container" >
-            <div class="form-group">
-                <label for="name">Nombre: </label><br>
-                <input type="text" name="name" required><br><br>
-    
-                <label for="email">Email: </label><br>
-                <input type="email" name="email" required><br><br>
-    
-                <label for="username">Nombre de usuario: </label><br>
-                <input type="text" name="username" required><br><br>
-    
-                <label for="password">Contraseña: </label><br>
-                <input type="password" name="password" required><br><br>
-    
-                <label for="origin_country">País de origen: </label>
-                <select name="origin_country">
-                    <option value="US">Estados Unidos</option>
-                    <option value="PA">Panamá</option>
-                    <option value="MX">México</option>
-                    <option value="CO">Colombia</option>
-                    <option value="CA">Canadá</option>
-                </select><br><br>
-    
-                <label for="origin_language">Lengua de origen: </label>
-                <select name="origin_language">
-                    <option value="en">Inglés</option>
-                    <option value="fr">Frances</option>
-                    <option value="es">Español</option>
-                
-                </select><br><br><br>
-    
-                 <button  type="submit">Registrarse</button>
-                  
-            </div>
-        </div> 
-    </from>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registro</button>
+        </from>
+    </div>
 </body>
 </html>

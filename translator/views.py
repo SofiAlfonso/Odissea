@@ -20,7 +20,6 @@ def home(request):
     
     #Translate
     src= request.session['user_src']
-    src= src.lower()
     dest= request.GET.get('destination_language')
     text= request.GET.get('inputText')
     print(dest)
@@ -28,7 +27,7 @@ def home(request):
     print(text)
     if text: 
         totext= tt.translate(src, dest, text)
-    return render(request, 'home.html',{'totext':totext,'text':text,'src':src.upper()})
+    return render(request, 'home.html',{'totext':totext,'text':text,'src':tt.LANGUAGES[src.lower()],'dest':tt.LANGUAGES.items()})
 
 #vista de la página de registro
 def register(request):
