@@ -19,6 +19,7 @@ def home(request):
         return redirect(login_url) # redireccionando al login
     
     #Translate
+    
     src= request.session['user_src']
     dest= request.GET.get('destination_language')
     text= request.GET.get('inputText')
@@ -27,6 +28,8 @@ def home(request):
     print(text)
     if text: 
         totext= tt.translate(src, dest, text)
+    else:
+        text=""
     return render(request, 'home.html',{'totext':totext,'text':text,'src':tt.LANGUAGES[src.lower()],'dest':tt.LANGUAGES.items()})
 
 #vista de la página de registro
