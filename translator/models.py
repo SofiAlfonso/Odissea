@@ -12,6 +12,16 @@ class CountryChoices(models.TextChoices):
     USA = 'US', 'Estados Unidos'
     CANADA = 'CA', 'Canadá'
 
+class UploadedImage(models.Model):
+    image = models.ImageField(upload_to='images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+from django.db import models
+
+class UploadedFile(models.Model):
+    file = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
 # Opciones de lenguaje
 class LanguageChoices(models.TextChoices):
    

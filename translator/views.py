@@ -2,6 +2,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . forms import RegisterForm, LoginForm
+from . forms import ImageUploadForm
+from . forms import FileUploadForm
 from .models import Register
 from django.urls import reverse
 from translator import text_translate as tt
@@ -103,3 +105,31 @@ def logout_view(request):
     # Redirigir al usuario a la página de inicio de sesión o cualquier otra página
     return redirect('login')
 
+from django.shortcuts import render, redirect
+from .forms import ImageUploadForm
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('image_upload')  # Redirige después de guardar para evitar que el formulario se vuelva a enviar si se recarga la página.
+    else:
+        # Si es una solicitud GET, muestra un formulario vacío
+        form = ImageUploadForm()
+
+    # Asegúrate de que el contexto sea un diccionario, no un conjunto
+    context = {'form': form}
+    return render(request, 'upload.html', context)
+
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('success')  # Redirige a una página de éxito
+    else:
+        form = FileUploadForm()
+    return render(request, 'upload.html', {'form': form})

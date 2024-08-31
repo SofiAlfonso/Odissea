@@ -16,14 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from translator import views as translator_views
+from django.conf import settings
+from django.conf.urls.static import static
+from translator.views import upload_file
 
 
 
+# Definición de urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', translator_views.home, name="home"),
-    path('register/',translator_views.register, name="register"),
-    path('',translator_views.custom_login, name='login'),
+    path('register/', translator_views.register, name="register"),
+    path('', translator_views.custom_login, name='login'),
     path('logout/', translator_views.logout_view, name='logout'),
-
+    path('upload/', translator_views.upload_image, name='image_upload'),
+    path('upload/', upload_file, name='upload'),
 ]
+
+# Servir archivos de medios en modo de desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

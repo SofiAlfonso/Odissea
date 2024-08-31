@@ -3,9 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <title>Odissea</title>
-    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,13 +74,11 @@
             font-size: 14px;
             color: #888;
         }
-        header h1
-        {
+        header h1 {
             text-align: center;
             padding-right: 20%;
         }
-        header button
-        {
+        header button {
             background-color: #d410ad;
             border-style: hidden;
             font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -90,24 +86,24 @@
             height: 60px;
             color: #ffffff;
         }
-        header button :hover
-        {
-            background-color: #a2168b 
+        header button:hover {
+            background-color: #a2168b;
+        }
+        .upload-button-container {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <img src="{% static 'images/logo.png' %}" alt="Logo" >
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
             <h1 font="sans-serif">Cada lengua es una nueva Odisea</h1>
             <a href="{% url 'logout' %}"><button> Cerrar Sesión</button></a>
-        
         </header>
         <form action="">
-            
             <br><br><label for="origin_language">Lengua de origen: {{src}} </label><br><br>
-            
             <div class="form-group">
                 <label for="inputText">Texto para traducir:</label>
                 <textarea id="inputText" placeholder="Escribe el texto aquí..." name="inputText">{{text}}</textarea>
@@ -116,7 +112,7 @@
             <label for="destination_language">Lengua de destino: </label>
             <select name="destination_language">
                 {% for key, value in dest %}
-                    <option value={{key}}>{{value}}</option>
+                    <option value="{{key}}">{{value}}</option>
                 {% endfor %}
             </select><br><br>
 
@@ -128,11 +124,15 @@
                 <button id="translateButton">Traducir</button>
             </div>
         </form>
+
+        <!-- Botón para subir archivos -->
+        <div class="upload-button-container">
+            <a href="{% url 'upload' %}"><button type="button">Subir Archivo</button></a>
+        </div>
        
         <footer>
             &copy; 2024 Odissea
         </footer>
     </div>
-  
 </body>
 </html>
