@@ -23,14 +23,19 @@ from translator.views import upload_file
 
 
 # Definición de urlpatterns
+from django.contrib import admin
+from django.urls import path
+from translator import views as translator_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', translator_views.home, name="home"),
-    path('register/', translator_views.register, name="register"),
+    path('home/', translator_views.home, name='home'),
+    path('register/', translator_views.register, name='register'),
     path('', translator_views.custom_login, name='login'),
     path('logout/', translator_views.logout_view, name='logout'),
-    path('upload/', translator_views.upload_image, name='image_upload'),
-    path('upload/', upload_file, name='upload'),
+    path('upload/', translator_views.upload_image, name='upload_image'),  
+    path('upload/file/', translator_views.upload_file, name='upload_file'),  
+    path('capture_and_translate/', translator_views.capture_and_translate, name='capture_and_translate'),
 ]
 
 # Servir archivos de medios en modo de desarrollo

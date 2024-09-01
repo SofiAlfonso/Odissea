@@ -7,33 +7,40 @@ from . forms import FileUploadForm
 from .models import Register
 from django.urls import reverse
 from translator import text_translate as tt
-
-
+from PIL import Image
+import pytesseract
+import cv2
+from PIL import Image as PILImage
 # Create your views here.
 
 #Vista de la página principal
+# views.py
 def home(request):
-    totext=""
+    totext = ""
+    extracted_text = request.session.get('extracted_text', '')
 
-    #Get into home
-    if not request.session.get('usuario_autenticado'): #Recuperación de dato sobre el inicio de sesión de un usuario
-        login_url=reverse('login') # Acceso al login url
-        return redirect(login_url) # redireccionando al login
-    
-    #Translate
-    
-    src= request.session['user_src']
-    dest= request.GET.get('destination_language')
-    text= request.GET.get('inputText')
-    print(dest)
-    print(src)
-    print(text)
-    if text: 
-        totext= tt.translate(src, dest, text)
+    if not request.session.get('usuario_autenticado'):
+        login_url = reverse('login')
+        return redirect(login_url)
+
+    src = request.session['user_src']
+    dest = request.GET.get('destination_language')
+    text = request.GET.get('inputText')
+
+    if text:
+        totext = tt.translate(src, dest, text)
     else:
-        text=""
-    return render(request, 'home.html',{'totext':totext,'text':text,'src':tt.LANGUAGES[src.lower()],'dest':tt.LANGUAGES.items()})
+        text = ""
 
+    if 'extracted_text' in request.session:
+        del request.session['extracted_text']
+
+    return render(request, 'home.html', {
+        'totext': totext,
+        'text': extracted_text or text,
+        'src': tt.LANGUAGES[src.lower()],
+        'dest': tt.LANGUAGES.items()
+    })
 #vista de la página de registro
 def register(request):
     if request.method=='POST':
@@ -112,16 +119,27 @@ def upload_image(request):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('image_upload')  # Redirige después de guardar para evitar que el formulario se vuelva a enviar si se recarga la página.
+            
+            uploaded_image = form.save()
+            
+            
+            image_path = uploaded_image.image.path
+            
+            
+            cv_image = cv2.imread(image_path)
+            
+            pil_image = PILImage.fromarray(cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB))
+            
+            extracted_text = pytesseract.image_to_string(pil_image)
+
+            
+            request.session['extracted_text'] = extracted_text
+            
+            return redirect('home')
     else:
-        # Si es una solicitud GET, muestra un formulario vacío
         form = ImageUploadForm()
 
-    # Asegúrate de que el contexto sea un diccionario, no un conjunto
-    context = {'form': form}
-    return render(request, 'upload.html', context)
-
+    return render(request, 'upload.html', {'form': form})
 
 
 def upload_file(request):
@@ -129,7 +147,40 @@ def upload_file(request):
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('success')  # Redirige a una página de éxito
+            return redirect('success')  
     else:
         form = FileUploadForm()
     return render(request, 'upload.html', {'form': form})
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+def capture_and_translate(request):
+    # Inicializa la cámara
+    cap = cv2.VideoCapture(0)
+
+    if not cap.isOpened():
+        print("No se pudo abrir la cámara.")
+        return redirect('home')  
+
+    
+    ret, frame = cap.read()
+
+    if not ret:
+        print("No se pudo capturar la imagen.")
+        cap.release()
+        return redirect('home')  
+
+    
+    image_pil = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+     
+    text = pytesseract.image_to_string(image_pil)
+
+    
+    cap.release()
+    cv2.destroyAllWindows()
+
+    
+    request.session['extracted_text'] = text
+
+    return redirect('home')  
