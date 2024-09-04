@@ -14,7 +14,6 @@ from PIL import Image as PILImage
 # Create your views here.
 
 #Vista de la página principal
-# views.py
 def home(request):
     totext = ""
     extracted_text = request.session.get('extracted_text', '')
@@ -26,7 +25,18 @@ def home(request):
     src = request.session['user_src']
     dest = request.GET.get('destination_language')
     text = request.GET.get('inputText')
+    cambio= request.GET.get('cambio_lengua')
+    
+    print(f"Valor de cambio_lengua: {cambio}")
+    
+    
+    if dest==None:
+        dest="en"
 
+    if cambio== "intercambiar":
+        dest, src= src, dest
+        request.session['user_src'] = src
+        print("cambio")
     if text:
         totext = tt.translate(src, dest, text)
     else:
@@ -39,7 +49,8 @@ def home(request):
         'totext': totext,
         'text': extracted_text or text,
         'src': tt.LANGUAGES[src.lower()],
-        'dest': tt.LANGUAGES.items()
+        'dest': tt.LANGUAGES.items(),
+        'ldest':tt.LANGUAGES[dest.lower()]
     })
 #vista de la página de registro
 def register(request):
