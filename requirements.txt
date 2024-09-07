@@ -6,3 +6,4 @@ pytesseract
 cv2
 gtts
 django
+os

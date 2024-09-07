@@ -24,7 +24,7 @@ class LoginForm(forms.Form):
 class ImageUploadForm(forms.ModelForm):
     class Meta:
         model = UploadedImage  # Modelo del cual se sube la imagen
-        fields = ('image',)  # Una tupla con un solo campo, nota la coma al final
+        fields = ('image',)  # Una tupla con un solo campo
 
 class FileUploadForm(forms.ModelForm):
     class Meta:

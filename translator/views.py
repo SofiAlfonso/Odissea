@@ -1,20 +1,25 @@
-#Login and register libraries 
+#libraries 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . forms import RegisterForm, LoginForm
 from . forms import ImageUploadForm
 from . forms import FileUploadForm
-from .models import Register
+from . models import Register
 from django.urls import reverse
 from translator import text_translate as tt
 from PIL import Image
 import pytesseract
 import cv2
 from PIL import Image as PILImage
+import os
+
+
+
 # Create your views here.
 
 #Vista de la página principal
 def home(request):
+
     totext = ""
     extracted_text = request.session.get('extracted_text', '')
 
@@ -52,6 +57,8 @@ def home(request):
         'dest': tt.LANGUAGES.items(),
         'ldest':tt.LANGUAGES[dest.lower()]
     })
+
+
 #vista de la página de registro
 def register(request):
     if request.method=='POST':
@@ -77,7 +84,7 @@ def register(request):
         form=RegisterForm()
     return render(request, 'register.html', {'form':form})
 
-#vie para el login
+#view para el login
 def custom_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -110,7 +117,7 @@ def custom_login(request):
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
-#Vista para cerra sesión
+#Vista para cerrar sesión
 def logout_view(request):
     # Eliminar las variables de sesión relacionadas con la autenticación
     try:
@@ -123,8 +130,6 @@ def logout_view(request):
     # Redirigir al usuario a la página de inicio de sesión o cualquier otra página
     return redirect('login')
 
-from django.shortcuts import render, redirect
-from .forms import ImageUploadForm
 
 def upload_image(request):
     if request.method == 'POST':
@@ -146,13 +151,17 @@ def upload_image(request):
             
             request.session['extracted_text'] = extracted_text
             
+            uploaded_image.delete()  # elimina la instancia de la base de datos y el archivo
+            if os.path.exists(image_path):
+                os.remove(image_path)  #elimina el archivo de la carpeta de almacenamiento
+            
             return redirect('home')
     else:
         form = ImageUploadForm()
 
     return render(request, 'upload.html', {'form': form})
 
-
+#Aun no está en funcionamiento
 def upload_file(request):
     if request.method == 'POST':
         form = FileUploadForm(request.POST, request.FILES)
@@ -165,6 +174,9 @@ def upload_file(request):
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
+
+
+#Función aún no terminada para tomar fotos con la cámara
 def capture_and_translate(request):
     # Inicializa la cámara
     cap = cv2.VideoCapture(0)
