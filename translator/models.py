@@ -38,4 +38,5 @@ class Register (models.Model):
     origin_language=models.CharField(max_length=5,choices=LanguageChoices.get_choices(), default='en' )
 
     def __str__(self):
-        return self.origin_language
+        return self.username
+    
