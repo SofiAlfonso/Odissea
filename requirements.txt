@@ -3,6 +3,6 @@ SpeechRecognition
 googletrans==4.0.0-rc1
 pillow
 pytesseract
-opencv-python==4.7.0.68
+opencv-python>=4.8.1.78
 gtts
 django
