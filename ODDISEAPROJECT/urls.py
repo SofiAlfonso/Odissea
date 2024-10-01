@@ -15,22 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from translator import views as translator_views
 from django.conf import settings
 from django.conf.urls.static import static
-
-
-# Definición de urlpatterns
-from django.contrib import admin
-from django.urls import path
 from translator import views as translator_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('text_translation/', translator_views.text_translation, name='text_translation'),
     path('upload/', translator_views.upload_image, name='upload_image'),  
     path('upload/file/', translator_views.upload_file, name='upload_file'),  
     path('capture_and_translate/', translator_views.capture_and_translate, name='capture_and_translate'),
+    path('', include('translator.urls')),
     path('', include('accounts.urls')),
 
 ]
