@@ -16,7 +16,7 @@ def register(request):
             request.session['usuario_autenticado'] = True 
             origin_country = form.cleaned_data.get('origin_country')
             request.session['user_src']= origin_country
-            return redirect('home')
+            return redirect('text_translation')
         
         else:
             for field, errors in form.errors.items():
@@ -49,7 +49,7 @@ def custom_login(request):
                     request.session['usuario_autenticado'] = True 
                     request.session['usuar_id'] = user.id #id del usuario en la sesión
                     request.session['user_src']= user.origin_language
-                    return redirect('home')
+                    return redirect('text_translation')
                 else:
                     #contrseña incorrecta
                     form.add_error(None, "Información inválida")

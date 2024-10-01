@@ -1,19 +1,23 @@
 #libraries 
 from django.shortcuts import render, redirect
+from googletrans import Translator, LANGUAGES
 from . forms import ImageUploadForm
 from . forms import FileUploadForm
 from django.urls import reverse
-from translator import text_translate as tt
 from PIL import Image
 import pytesseract
 import cv2
 from PIL import Image as PILImage
 import os
 
-# Create your views here.
+# Functions
+def translate(src, dest, text):
+    translator= Translator()
+    translation= translator.translate(text, dest=dest, src=src)
+    return translation.text 
 
 #Vista de la página principal
-def home(request):
+def text_translation(request):
 
     totext = ""
     extracted_text = request.session.get('extracted_text', '')
@@ -38,24 +42,20 @@ def home(request):
         request.session['user_src'] = src
         print("cambio")
     if text:
-        totext = tt.translate(src, dest, text)
+        totext = translate(src, dest, text)
     else:
         text = ""
 
     if 'extracted_text' in request.session:
         del request.session['extracted_text']
 
-    return render(request, 'home.html', {
+    return render(request, 'text_translation.html', {
         'totext': totext,
         'text': extracted_text or text,
-        'src': tt.LANGUAGES[src.lower()],
-        'dest': tt.LANGUAGES.items(),
-        'ldest':tt.LANGUAGES[dest.lower()]
+        'src': LANGUAGES[src.lower()],
+        'dest': LANGUAGES.items(),
+        'ldest':LANGUAGES[dest.lower()]
     })
-
-
-#vista de la página de registro
-
 
 
 def upload_image(request):
@@ -82,7 +82,7 @@ def upload_image(request):
             if os.path.exists(image_path):
                 os.remove(image_path)  #elimina el archivo de la carpeta de almacenamiento
             
-            return redirect('home')
+            return redirect('text_translation')
     else:
         form = ImageUploadForm()
 
@@ -110,7 +110,7 @@ def capture_and_translate(request):
 
     if not cap.isOpened():
         print("No se pudo abrir la cámara.")
-        return redirect('home')  
+        return redirect('text_translation')  
 
     
     ret, frame = cap.read()
@@ -118,7 +118,7 @@ def capture_and_translate(request):
     if not ret:
         print("No se pudo capturar la imagen.")
         cap.release()
-        return redirect('home')  
+        return redirect('text_translation')  
 
     
     image_pil = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
@@ -133,4 +133,4 @@ def capture_and_translate(request):
     
     request.session['extracted_text'] = text
 
-    return redirect('home')  
+    return redirect('text_translation')  
