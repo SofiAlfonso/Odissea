@@ -1,6 +1,5 @@
 from django import forms
 from .models import Register, UploadedImage, UploadedFile
-from django.contrib.auth.hashers import make_password
 
 # Formulario para el registro
 class RegisterForm(forms.ModelForm):
