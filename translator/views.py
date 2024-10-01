@@ -9,9 +9,6 @@ import pytesseract
 import cv2
 from PIL import Image as PILImage
 import os
-from accounts.views import *
-
-
 
 # Create your views here.
 
