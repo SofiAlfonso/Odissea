@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
-from translator.models import Register
+from . models import Register
 
 # Create your views here.
 def register(request):

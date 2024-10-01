@@ -1,5 +1,5 @@
 from django import forms
-from translator.models import Register
+from . models import Register
 
 # Formulario para el registro
 class RegisterForm(forms.ModelForm):
