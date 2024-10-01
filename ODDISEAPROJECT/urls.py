@@ -14,12 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from translator import views as translator_views
 from django.conf import settings
 from django.conf.urls.static import static
-from translator.views import upload_file
-
 
 
 # Definición de urlpatterns
@@ -30,12 +28,11 @@ from translator import views as translator_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', translator_views.home, name='home'),
-    path('register/', translator_views.register, name='register'),
-    path('', translator_views.custom_login, name='login'),
-    path('logout/', translator_views.logout_view, name='logout'),
     path('upload/', translator_views.upload_image, name='upload_image'),  
     path('upload/file/', translator_views.upload_file, name='upload_file'),  
     path('capture_and_translate/', translator_views.capture_and_translate, name='capture_and_translate'),
+    path('', include('accounts.urls')),
+
 ]
 
 # Servir archivos de medios en modo de desarrollo
