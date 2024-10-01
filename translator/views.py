@@ -59,6 +59,10 @@ def text_translation(request):
 
 
 def upload_image(request):
+    if not request.session.get('usuario_autenticado'):
+        login_url = reverse('login')
+        return redirect(login_url)
+    
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -86,10 +90,14 @@ def upload_image(request):
     else:
         form = ImageUploadForm()
 
-    return render(request, 'upload.html', {'form': form})
+    return render(request, 'upload_image.html', {'form': form})
 
 #Aun no está en funcionamiento
 def upload_file(request):
+    if not request.session.get('usuario_autenticado'):
+        login_url = reverse('login')
+        return redirect(login_url)
+    
     if request.method == 'POST':
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -105,6 +113,9 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 
 #Función aún no terminada para tomar fotos con la cámara
 def capture_and_translate(request):
+    if not request.session.get('usuario_autenticado'):
+        login_url = reverse('login')
+        return redirect(login_url)
     # Inicializa la cámara
     cap = cv2.VideoCapture(0)
 

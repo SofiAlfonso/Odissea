@@ -21,7 +21,7 @@ from translator import views as translator_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('upload/', translator_views.upload_image, name='upload_image'),  
+    path('upload_images/', translator_views.upload_image, name='upload_image'),  
     path('upload/file/', translator_views.upload_file, name='upload_file'),  
     path('capture_and_translate/', translator_views.capture_and_translate, name='capture_and_translate'),
     path('', include('translator.urls')),
