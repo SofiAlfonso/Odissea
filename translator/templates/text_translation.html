@@ -105,7 +105,6 @@
         <header>
             <img src="{% static 'images/logo.png' %}" alt="Logo">
             <h1 font="sans-serif">Cada lengua es una nueva Odisea</h1>
-            <a href="{% url 'logout' %}"><button> Cerrar Sesión</button></a>
         </header>
         <form action="" method="GET">
             <br><br><label for="origin_language">Lengua de origen: {{src}} </label><br><br>
@@ -137,15 +136,6 @@
             </div>
         </form>
         
-
-        <!-- Botón para subir imágenes -->
-        <div class="upload-button-container">
-            <a href="{% url 'upload_image' %}"><button type="button">Subir Imagen</button></a>
-        </div>
-       
-        <footer>
-            &copy; 2024 Odissea
-        </footer>
     </div>
 </body>
 {% endblock content%}
