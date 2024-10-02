@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from googletrans import Translator, LANGUAGES
 from . forms import FileUploadForm
 from django.urls import reverse
-
+from .management.commands.IA_examples import Command
 
 # Functions
 def translate(src, dest, text):
@@ -27,6 +27,7 @@ def text_translation(request):
     cambio= request.GET.get('cambio_lengua')
     
     print(f"Valor de cambio_lengua: {cambio}")
+    make_examples('EN',"amigo")
     
     
     if dest==None:
@@ -51,6 +52,12 @@ def text_translation(request):
         'dest': LANGUAGES.items(),
         'ldest':LANGUAGES[dest.lower()]
     })
+
+def make_examples(dest, text):
+    dest= LANGUAGES[dest.lower()]
+    query= f"{dest}%{text}"
+    print(query)
+    Command.handle(query,Command.handle)
 
 
 
