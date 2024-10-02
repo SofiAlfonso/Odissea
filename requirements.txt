@@ -6,3 +6,4 @@ pytesseract
 opencv-python>=4.8.1.78
 gtts
 django
+google-generativeai
