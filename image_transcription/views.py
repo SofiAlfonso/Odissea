@@ -5,7 +5,7 @@ import cv2
 from PIL import Image as PILImage
 import os
 from django.urls import reverse
-from translator.forms import ImageUploadForm
+from .forms import ImageUploadForm
 # Create your views here.
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
