@@ -1,8 +1,17 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
 from . models import Register
+from django.urls import reverse
 
 # Create your views here.
+
+def home(request):
+    if not request.session.get('usuario_autenticado'):
+        login_url = reverse('login')
+        return redirect(login_url)
+    return render(request, 'home.html')
+
+
 def register(request):
     if request.method=='POST':
 
@@ -16,7 +25,7 @@ def register(request):
             request.session['usuario_autenticado'] = True 
             origin_country = form.cleaned_data.get('origin_country')
             request.session['user_src']= origin_country
-            return redirect('text_translation')
+            return redirect('home')
         
         else:
             for field, errors in form.errors.items():
@@ -49,7 +58,7 @@ def custom_login(request):
                     request.session['usuario_autenticado'] = True 
                     request.session['usuar_id'] = user.id #id del usuario en la sesión
                     request.session['user_src']= user.origin_language
-                    return redirect('text_translation')
+                    return redirect('home')
                 else:
                     #contrseña incorrecta
                     form.add_error(None, "Información inválida")
