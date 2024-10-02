@@ -33,7 +33,7 @@ class Command(BaseCommand):
         generation_config=generation_config,
         # safety_settings = Adjust safety settings
         # See https://ai.google.dev/gemini-api/docs/safety-settings
-        system_instruction="Tono relajado y fácil de comprehender, conciso, no hagas preguntas, ni saludes, ni te despidas. Debes contestar tres ejemplos cada uno de no más de 100 palabras, que se encuentren separados, la respuesta debe darse en el idioma que te pida y, luego, separada, la misma respuesta traducida en el idioma que esté escrito el texto sobre el cual haras los ejemplos aplicativos. El idioma estará en minuscula, separado con un signo de porcentaje del texto sobre el cual darás los ejemplos. Los ejemplos no deben tener ninguna explicación adicional.",
+        system_instruction="Tono relajado y fácil de comprender, conciso, no hagas preguntas, ni saludes, ni te despidas. Debes contestar tres ejemplos cada uno de no más de 100 palabras, que se encuentren separados, la respuesta debe darse en el idioma que te pida y, luego, separada, la misma respuesta traducida en el idioma que esté escrito el texto sobre el cual haras los ejemplos aplicativos. El idioma estará en minuscula, separado con un signo de porcentaje del texto sobre el cual darás los ejemplos. Los ejemplos no deben tener ninguna explicación adicional.",
       )
 
       history=[]
