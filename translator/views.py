@@ -35,8 +35,10 @@ def text_translation(request):
         show_modal = True
     
     # Lenguaje de destino por defecto
-    if dest==None:
-        dest="en"
+    if dest:
+        request.session['user_dest'] = dest  # Guardar nueva lengua de destino en la sesión
+    else:
+        dest = request.session.get('user_dest', 'en') 
 
     # Intercambiar lenguaje
     if cambio== "intercambiar":
@@ -59,9 +61,9 @@ def text_translation(request):
         'text': extracted_text or text,
         'src': LANGUAGES[src.lower()],
         'dest': LANGUAGES.items(),
-        'ldest':LANGUAGES[dest.lower()],
         'examples_response':examples_response,
         'show_modal': show_modal,
+        'last_language':dest,
     })
 
 def make_examples(dest, text):

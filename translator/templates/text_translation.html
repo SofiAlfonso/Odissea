@@ -120,11 +120,10 @@
             <label for="destination_language">Lengua de destino: </label>
             <select name="destination_language" id="destination_language">
                 {% for key, value in dest %}
-                    <option value="{{key}}" type="submit">{{value}}</option>
+                    <option value="{{key}}" type="submit" {% if key == last_language %}selected{% endif %}>{{value}}</option>
                 {% endfor %}
             </select>
-            <label id="destLabel"> => {{ldest}}</label>
-        
+
             <br><br>
             
             <div class="form-group">
