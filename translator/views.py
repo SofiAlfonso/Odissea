@@ -60,8 +60,6 @@ def make_examples(dest, text):
     Command.handle(query,Command.handle)
 
 
-
-
 #Aun no está en funcionamiento
 def upload_file(request):
     if not request.session.get('usuario_autenticado'):
