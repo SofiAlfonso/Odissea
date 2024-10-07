@@ -43,4 +43,4 @@ class Command(BaseCommand):
 
       response = chat_session.send_message(message)
 
-      print(response.text)
+      return(response.text)

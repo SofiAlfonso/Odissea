@@ -14,13 +14,14 @@ def translate(src, dest, text):
 #Vista de la página principal
 def text_translation(request):
     totext = ""
-    extracted_text = request.session.get('extracted_text', '')
+    examples_response= None
 
     #Devuelve al login si no se ha iniciado sesión
     if not request.session.get('usuario_autenticado'):
         login_url = reverse('login')
         return redirect(login_url)
-
+    
+    extracted_text = request.session.get('extracted_text', '') #Texto escaneado
     src = request.session['user_src'] #Lengua de origen
     dest = request.GET.get('destination_language') # Lengua de destino
     text = request.GET.get('inputText') #Texto de entrada
@@ -29,7 +30,7 @@ def text_translation(request):
     
     #Dar ejemplos
     if (examples=="examples") and text :
-        make_examples(dest, text)
+        examples_response= make_examples(dest, text).split('\n')
     
     # Lenguaje de destino por defecto
     if dest==None:
@@ -56,14 +57,15 @@ def text_translation(request):
         'text': extracted_text or text,
         'src': LANGUAGES[src.lower()],
         'dest': LANGUAGES.items(),
-        'ldest':LANGUAGES[dest.lower()]
+        'ldest':LANGUAGES[dest.lower()],
+        'examples_response':examples_response
     })
 
 def make_examples(dest, text):
     dest= LANGUAGES[dest.lower()]
     query= f"{dest}%{text}"
     print(query)
-    Command.handle(query,Command.handle)
+    return Command.handle(query,Command.handle)
 
 
 #Aun no está en funcionamiento

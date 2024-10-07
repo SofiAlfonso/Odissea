@@ -138,7 +138,14 @@
                 <button id="examples" value="examples"  name="examples" type="submit">Examples</button>
             </div>
         </form>
-        
+    </div>
+    <div>
+        {% if examples_response != None %}
+            {% for a in examples_response %}
+            <p1>{{a}}</p1>
+            <br>
+            {% endfor %}
+        {% endif %}
     </div>
 </body>
 {% endblock content%}
