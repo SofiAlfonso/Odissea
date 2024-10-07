@@ -13,35 +13,41 @@ def translate(src, dest, text):
 
 #Vista de la página principal
 def text_translation(request):
-
     totext = ""
     extracted_text = request.session.get('extracted_text', '')
 
+    #Devuelve al login si no se ha iniciado sesión
     if not request.session.get('usuario_autenticado'):
         login_url = reverse('login')
         return redirect(login_url)
 
-    src = request.session['user_src']
-    dest = request.GET.get('destination_language')
-    text = request.GET.get('inputText')
-    cambio= request.GET.get('cambio_lengua')
+    src = request.session['user_src'] #Lengua de origen
+    dest = request.GET.get('destination_language') # Lengua de destino
+    text = request.GET.get('inputText') #Texto de entrada
+    cambio= request.GET.get('cambio_lengua') #Intercambiar idioma
+    examples= request.GET.get('examples') # Dar ejemplos
     
-    print(f"Valor de cambio_lengua: {cambio}")
-    make_examples('EN',"amigo")
+    #Dar ejemplos
+    if (examples=="examples") and text :
+        make_examples(dest, text)
     
-    
+    # Lenguaje de destino por defecto
     if dest==None:
         dest="en"
 
+    # Intercambiar lenguaje
     if cambio== "intercambiar":
         dest, src= src, dest
         request.session['user_src'] = src
         print("cambio")
+    
+    # Traducir
     if text:
         totext = translate(src, dest, text)
     else:
         text = ""
 
+    # Traducir imagen escaneada
     if 'extracted_text' in request.session:
         del request.session['extracted_text']
 
