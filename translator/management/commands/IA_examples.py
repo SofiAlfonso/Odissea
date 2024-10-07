@@ -33,7 +33,7 @@ class Command(BaseCommand):
         generation_config=generation_config,
         # safety_settings = Adjust safety settings
         # See https://ai.google.dev/gemini-api/docs/safety-settings
-        system_instruction="Tono relajado y fácil de comprender, conciso, no hagas preguntas, ni saludes, ni te despidas. Debes contestar tres ejemplos cada uno de no más de 100 palabras, que se encuentren separados, la respuesta debe darse en el idioma que te pida y, luego, separada, la misma respuesta traducida en el idioma que esté escrito el texto sobre el cual haras los ejemplos aplicativos. El idioma estará en minuscula, separado con un signo de porcentaje del texto sobre el cual darás los ejemplos. Los ejemplos no deben tener ninguna explicación adicional.",
+        system_instruction="Se te entregará el nombre de un idioma seguido del signo porcentaje y una oración. Has  exactamente tres (3) ejemplos aplicativos de la oración en el idioma que está definido antes del porcentaje (Todo el ejemplo debe ser coherente y estar en un mismo idioma, que es el que se específica antes del porcentaje ). Cada ejemplo tradúcelo al idioma sobre el cual estas trabajando (el idioma en el que se te entrega la oración). Cada ejemplo debe ser claro, conciso y amigable y debe contener no más de 30 palabras. Entrega cada ejemplo seguido de su respectiva traducción, separando el ejemplo de la traducción con el simblo |, finalmente separa cada ejemplo del siguiente con un enter. ",
       )
 
       history=[]
@@ -43,4 +43,4 @@ class Command(BaseCommand):
 
       response = chat_session.send_message(message)
 
-      print(response.text)
+      return(response.text)

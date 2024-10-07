@@ -13,35 +13,46 @@ def translate(src, dest, text):
 
 #Vista de la página principal
 def text_translation(request):
-
     totext = ""
-    extracted_text = request.session.get('extracted_text', '')
+    examples_response= None
+    show_modal = False
 
+    #Devuelve al login si no se ha iniciado sesión
     if not request.session.get('usuario_autenticado'):
         login_url = reverse('login')
         return redirect(login_url)
+    
+    extracted_text = request.session.get('extracted_text', '') #Texto escaneado
+    src = request.session['user_src'] #Lengua de origen
+    dest = request.GET.get('destination_language') # Lengua de destino
+    text = request.GET.get('inputText') #Texto de entrada
+    cambio= request.GET.get('cambio_lengua') #Intercambiar idioma
+    examples= request.GET.get('examples') # Dar ejemplos
+    
+    #Dar ejemplos
+    if (examples=="examples") and text :
+        examples_response= make_examples(dest, text).split('\n')
+        show_modal = True
+    
+    # Lenguaje de destino por defecto
+    if dest:
+        request.session['user_dest'] = dest  # Guardar nueva lengua de destino en la sesión
+    else:
+        dest = request.session.get('user_dest', 'en') 
 
-    src = request.session['user_src']
-    dest = request.GET.get('destination_language')
-    text = request.GET.get('inputText')
-    cambio= request.GET.get('cambio_lengua')
-    
-    print(f"Valor de cambio_lengua: {cambio}")
-    make_examples('EN',"amigo")
-    
-    
-    if dest==None:
-        dest="en"
-
+    # Intercambiar lenguaje
     if cambio== "intercambiar":
         dest, src= src, dest
         request.session['user_src'] = src
         print("cambio")
+    
+    # Traducir
     if text:
         totext = translate(src, dest, text)
     else:
         text = ""
 
+    # Traducir imagen escaneada
     if 'extracted_text' in request.session:
         del request.session['extracted_text']
 
@@ -50,16 +61,16 @@ def text_translation(request):
         'text': extracted_text or text,
         'src': LANGUAGES[src.lower()],
         'dest': LANGUAGES.items(),
-        'ldest':LANGUAGES[dest.lower()]
+        'examples_response':examples_response,
+        'show_modal': show_modal,
+        'last_language':dest,
     })
 
 def make_examples(dest, text):
     dest= LANGUAGES[dest.lower()]
     query= f"{dest}%{text}"
     print(query)
-    Command.handle(query,Command.handle)
-
-
+    return Command.handle(query,Command.handle)
 
 
 #Aun no está en funcionamiento
