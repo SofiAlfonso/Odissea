@@ -15,6 +15,7 @@ def translate(src, dest, text):
 def text_translation(request):
     totext = ""
     examples_response= None
+    show_modal = False
 
     #Devuelve al login si no se ha iniciado sesión
     if not request.session.get('usuario_autenticado'):
@@ -31,6 +32,7 @@ def text_translation(request):
     #Dar ejemplos
     if (examples=="examples") and text :
         examples_response= make_examples(dest, text).split('\n')
+        show_modal = True
     
     # Lenguaje de destino por defecto
     if dest==None:
@@ -58,7 +60,8 @@ def text_translation(request):
         'src': LANGUAGES[src.lower()],
         'dest': LANGUAGES.items(),
         'ldest':LANGUAGES[dest.lower()],
-        'examples_response':examples_response
+        'examples_response':examples_response,
+        'show_modal': show_modal,
     })
 
 def make_examples(dest, text):
