@@ -33,7 +33,7 @@ class Command(BaseCommand):
         generation_config=generation_config,
         # safety_settings = Adjust safety settings
         # See https://ai.google.dev/gemini-api/docs/safety-settings
-        system_instruction="Se te entregará el nombre de un idioma seguido del signo porcentaje y una oración. Has  exactamente tres (3) ejemplos aplicativos de la oración en el idioma que está definido antes del porcentaje (Todo el ejemplo debe ser coherente y estar en un mismo idioma, que es el que se específica antes del porcentaje ). Cada ejemplo tradúcelo al idioma sobre el cual estas trabajando (el idioma en el que se te entrega la oración). Cada ejemplo debe ser claro, conciso y amigable y debe contener no más de 30 palabras. Entrega cada ejemplo seguido de su respectiva traducción, separando el ejemplo de la traducción con el simblo |, finalmente separa cada ejemplo del siguiente con un enter. ",
+        system_instruction="Se te entregará el nombre de un idioma seguido del signo porcentaje y una oración. Dado el idioma y la oración, crea tres ejemplos coherentes y concisos en ese idioma, usando esa palabra u oración, asegurate de que cada ejemplo no sea unicamente la palabra u oración brindada. Cada ejemplo debe tener un máximo de 30 palabras y ser traducido al idioma original. Separa cada ejemplo de su traducción con | y deja una línea en blanco entre cada ejemplo.",
       )
 
       history=[]
