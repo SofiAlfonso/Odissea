@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('image_transcription.urls')),
     path('', include('translator.urls')),
     path('', include('accounts.urls')),
+    path('audio/', include('audio_upload.urls')),
 
 ]
 
