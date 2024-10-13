@@ -35,7 +35,7 @@
             flex-direction: column;
             gap: 15px;
         }
-        input[type="file"] {
+        input[type="file"], select {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -61,12 +61,16 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
+                
+                <label for="id_language">Selecciona el idioma:</label>
+                {{ form.language }}  <!-- Campo para seleccionar el idioma -->
+                
                 <label for="id_audio">Archivo de audio:</label>
                 {{ form.audio }}
+                
                 <button type="submit">Subir</button>
             </form>
         </div>
     </div>
 </body>
 {% endblock content %}
-</html>
