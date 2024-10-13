@@ -26,12 +26,8 @@ urlpatterns = [
     path('', include('translator.urls')),
     path('', include('accounts.urls')),
     path('audio/', include('audio_upload.urls')),
-<<<<<<< HEAD
 
 ]
-=======
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> redireccion
 
 # Servir archivos de medios en modo de desarrollo
 if settings.DEBUG:
