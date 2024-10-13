@@ -13,9 +13,9 @@ def translate(src, dest, text):
 
 #Vista de la página principal
 def text_translation(request):
-
     totext = ""
-    extracted_text = request.session.get('extracted_text', '')
+    extracted_text_image = request.session.get('extracted_text', '')
+    extracted_text_audio = request.session.get('extracted_text_audio', '')
 
     if not request.session.get('usuario_autenticado'):
         login_url = reverse('login')
@@ -24,34 +24,37 @@ def text_translation(request):
     src = request.session['user_src']
     dest = request.GET.get('destination_language')
     text = request.GET.get('inputText')
-    cambio= request.GET.get('cambio_lengua')
-    
-    print(f"Valor de cambio_lengua: {cambio}")
-    make_examples('EN',"amigo")
-    
-    
-    if dest==None:
-        dest="en"
+    cambio = request.GET.get('cambio_lengua')
 
-    if cambio== "intercambiar":
-        dest, src= src, dest
+    if dest is None:
+        dest = "en"
+
+    if cambio == "intercambiar":
+        dest, src = src, dest
         request.session['user_src'] = src
-        print("cambio")
-    if text:
-        totext = translate(src, dest, text)
-    else:
-        text = ""
 
+    # Elegir el texto a traducir
+    if extracted_text_audio:
+        totext = translate(src, dest, extracted_text_audio)
+    elif extracted_text_image:
+        totext = translate(src, dest, extracted_text_image)
+    elif text:
+        totext = translate(src, dest, text)
+
+    # Limpiar las sesiones de texto extraído
     if 'extracted_text' in request.session:
         del request.session['extracted_text']
+    if 'extracted_text_audio' in request.session:
+        del request.session['extracted_text_audio']
 
     return render(request, 'text_translation.html', {
         'totext': totext,
-        'text': extracted_text or text,
+        'text': extracted_text_image or extracted_text_audio or text,
         'src': LANGUAGES[src.lower()],
         'dest': LANGUAGES.items(),
-        'ldest':LANGUAGES[dest.lower()]
+        'ldest': LANGUAGES[dest.lower()]
     })
+
 
 def make_examples(dest, text):
     dest= LANGUAGES[dest.lower()]
