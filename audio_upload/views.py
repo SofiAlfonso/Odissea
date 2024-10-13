@@ -1,20 +1,4 @@
 from django.shortcuts import render, redirect
-<<<<<<< HEAD
-from .forms import AudioFileForm
-
-def upload_audio(request):
-    if request.method == 'POST':
-        form = AudioFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('audio_success')
-    else:
-        form = AudioFileForm()
-    return render(request, 'upload_audio.html', {'form': form})
-
-def upload_success(request):
-    return render(request, 'audio_success.html')
-=======
 from django.urls import reverse
 from .forms import AudioFileForm
 import speech_recognition as sr
@@ -45,9 +29,11 @@ def upload_audio(request):
                     request.session['extracted_text_audio'] = f"Error en el servicio de reconocimiento: {e}"
 
             # Eliminar el archivo de audio después de procesarlo
+            print(recognizer.recognize_google(audio_data))
+
+            uploaded_audio.delete()  # elimina la instancia de la base de datos y el archivo
             if os.path.exists(audio_path):
-                os.remove(audio_path)
-            
+                os.remove(audio_path)  #elimina el archivo de la carpeta de almacenamiento
             return redirect('text_translation') 
         else:
             print(form.errors) 
@@ -59,4 +45,3 @@ def upload_audio(request):
 def upload_success(request):
     audio_extracted_text = request.session.get('audio_extracted_text', '')
     return render(request, 'audio_success.html', {'audio_extracted_text': audio_extracted_text})
->>>>>>> redireccion
