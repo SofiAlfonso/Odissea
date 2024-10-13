@@ -12,6 +12,7 @@ def upload_audio(request):
     if request.method == 'POST':
         form = AudioFileForm(request.POST, request.FILES)
         if form.is_valid():
+            print("Form valid")
             uploaded_audio = form.save()
             audio_path = uploaded_audio.audio.path
 
@@ -31,7 +32,9 @@ def upload_audio(request):
             if os.path.exists(audio_path):
                 os.remove(audio_path)
             
-            return redirect('text_translation')  
+            return redirect('text_translation') 
+        else:
+            print(form.errors) 
     else:
         form = AudioFileForm()
     

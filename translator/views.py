@@ -33,13 +33,10 @@ def text_translation(request):
         dest, src = src, dest
         request.session['user_src'] = src
 
-    # Elegir el texto a traducir
-    if extracted_text_audio:
-        totext = translate(src, dest, extracted_text_audio)
-    elif extracted_text_image:
-        totext = translate(src, dest, extracted_text_image)
-    elif text:
+    if text:
         totext = translate(src, dest, text)
+    else:
+        text = ""
 
     # Limpiar las sesiones de texto extraído
     if 'extracted_text' in request.session:
