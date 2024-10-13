@@ -83,21 +83,6 @@ def make_examples(dest, text):
     return Command.handle(query,Command.handle)
 
 
-#Aun no está en funcionamiento
-def upload_file(request):
-    if not request.session.get('usuario_autenticado'):
-        login_url = reverse('login')
-        return redirect(login_url)
-    
-    if request.method == 'POST':
-        form = FileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('success')  
-    else:
-        form = FileUploadForm()
-    return render(request, 'upload.html', {'form': form})
-
 
 
 
