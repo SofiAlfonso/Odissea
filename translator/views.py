@@ -32,7 +32,7 @@ def text_translation(request):
     
     #Dar ejemplos
     if (examples=="examples") and text :
-        examples_response= make_examples(dest, text).split('\n')
+        examples_response= make_examples(dest, text, src).split('\n')
         show_modal = True
     
     # Lenguaje de destino por defecto
@@ -76,9 +76,9 @@ def text_translation(request):
     })
 
 
-def make_examples(dest, text):
+def make_examples(dest, text, src):
     dest= LANGUAGES[dest.lower()]
-    query= f"{dest}%{text}"
+    query= f"{dest}%{text}%{src}"
     print(query)
     return Command.handle(query,Command.handle)
 
