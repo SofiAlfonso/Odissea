@@ -32,7 +32,7 @@ def text_translation(request):
     
     #Dar ejemplos
     if (examples=="examples") and text :
-        examples_response= make_examples(dest, text, src).split('\n')
+        examples_response= make_examples(dest, text, LANGUAGES[src.lower()]).split('\n')
         show_modal = True
     
     # Lenguaje de destino por defecto
