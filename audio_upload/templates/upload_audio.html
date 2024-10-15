@@ -69,12 +69,12 @@
                 {{ form.audio }}
                 
                 <button type="submit">Subir</button>
-            </form> 
-            {% if form.errors %}
-                <p class= "error"style="color: red;">El formato del audio debe ser .wav</p>
-            {% endif %}
+            </form>
+        </form> 
+        {% if form.errors %}
+            <p class= "error"style="color: red;">El formato del audio debe ser .wav</p>
+        {% endif %}
         </div>
     </div>
-   
 </body>
 {% endblock content %}
