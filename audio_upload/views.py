@@ -18,6 +18,8 @@ def upload_audio(request):
 
             if not audio_path.endswith('.wav'):
                 form.add_error('audio', 'El formato del archivo debe ser .wav.')
+                if os.path.exists(audio_path):
+                    os.remove(audio_path)
                 return render(request, 'upload_audio.html', {'form': form})
 
             # Transcribir el audio con el idioma especificado
