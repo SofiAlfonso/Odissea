@@ -16,14 +16,15 @@ def text_translation(request):
     totext = ""
     examples_response= None
     show_modal = False
-    extracted_text_image = request.session.get('extracted_text', '')
-    extracted_text_audio = request.session.get('extracted_text_audio', '')
+    
 
     #Devuelve al login si no se ha iniciado sesión
     if not request.session.get('usuario_autenticado'):
         login_url = reverse('login')
         return redirect(login_url)
     
+    extracted_text_image = request.session.get('extracted_text', '')
+    extracted_text_audio = request.session.get('extracted_text_audio', '')
     src = request.session['user_src'] #Lengua de origen
     dest = request.GET.get('destination_language') # Lengua de destino
     text = request.GET.get('inputText') #Texto de entrada
