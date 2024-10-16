@@ -5,4 +5,4 @@ class AudioFile(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return self(self.audio)
