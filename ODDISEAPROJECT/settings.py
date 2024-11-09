@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'image_transcription',
     'audio_upload',
+    'speech',
 ]
 
 MIDDLEWARE = [
