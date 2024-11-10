@@ -5,7 +5,7 @@ googletrans==4.0.0-rc1
 pillow
 pytesseract
 opencv-python>=4.8.1.78
-gtts
+pyttsx3
 django
 google-generativeai
 python-dotenv
