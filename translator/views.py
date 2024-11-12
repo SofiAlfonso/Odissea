@@ -4,7 +4,8 @@ from googletrans import Translator, LANGUAGES
 from gtts import gTTS
 import io
 from django.urls import reverse
-from .management.commands.IA_examples import Command
+from .management.commands.IA_examples import Command as Commandexamples
+from .management.commands.IA_suggestions import Command as Commandsuggestions
 
 # Función de traducción
 def translate(src, dest, text):
@@ -17,6 +18,8 @@ def text_translation(request):
     totext = ""
     examples_response = None
     show_modal = False
+    show_modal2 = request.session.get('show_modal2')
+    sugerencias_response = None
 
     # Redirigir a login si no ha iniciado sesión
     if not request.session.get('usuario_autenticado'):
@@ -30,11 +33,18 @@ def text_translation(request):
     text = request.GET.get('inputText', '')  # Texto de entrada
     cambio = request.GET.get('cambio_lengua')  # Intercambiar idioma
     examples = request.GET.get('examples')  # Dar ejemplos
+    sugerencia= request.GET.get('sugerencias')  # Dar sugerencias
 
     # Generar ejemplos si se ha solicitado
     if examples == "examples" and text:
         examples_response = make_examples(dest, text, LANGUAGES[src.lower()]).split('\n')
         show_modal = True
+
+    # Generar sugerencias si se ha solicitado
+    if sugerencia == "sugerencias" and text:
+        sugerencias_response = make_sugerencias(dest, text, LANGUAGES[src.lower()]).split('\n')
+        request.session['show_modal2'] = True
+
 
     # Intercambiar lenguaje
     if cambio == "intercambiar":
@@ -54,6 +64,7 @@ def text_translation(request):
     # Guardar el texto traducido en la sesión para usarlo en el audio
     request.session['translated_text'] = totext
 
+
     return render(request, 'text_translation.html', {
         'totext': totext,
         'text': extracted_text_image or extracted_text_audio or text,
@@ -62,6 +73,8 @@ def text_translation(request):
         'examples_response': examples_response,
         'show_modal': show_modal,
         'last_language': dest,
+        'show_modal2': show_modal2,
+        'sugerencias_response': sugerencias_response
     })
 
 # Función para generar ejemplos
@@ -69,7 +82,12 @@ def make_examples(dest, text, src):
     dest = LANGUAGES[dest.lower()]
     query = f"{dest}%{text}%{src}"
     print(query)
-    return Command.handle(query, Command.handle)
+    return Commandexamples.handle(query, Commandexamples.handle)
 
-# Vista para convertir texto a voz
+# Función para generar sugerencias
+def make_sugerencias(dest, text, src):
+    dest = LANGUAGES[dest.lower()]
+    query = f"{dest}%{text}%{src}"
+    print(query)
+    return Commandsuggestions.handle(query, Commandsuggestions.handle)
 
