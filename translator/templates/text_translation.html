@@ -245,7 +245,8 @@
         </script>
     {% endif %}
     <script>
-    document.getElementById('ttsButton').addEventListener('click', function() {
+    document.getElementById('ttsButton').addEventListener('click', function(event) {
+        event.preventDefault()
         const text = document.getElementById('outputText').value;  // Texto traducido
         const language = "{{ last_language|default:'en' }}";  // Obtener el idioma de destino
     
