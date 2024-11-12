@@ -18,7 +18,7 @@ def text_translation(request):
     totext = ""
     examples_response = None
     show_modal = False
-    show_modal2 = request.session.get('show_modal2')
+    show_modal2 = False
     sugerencias_response = None
 
     # Redirigir a login si no ha iniciado sesión
@@ -43,7 +43,7 @@ def text_translation(request):
     # Generar sugerencias si se ha solicitado
     if sugerencia == "sugerencias" and text:
         sugerencias_response = make_sugerencias(dest, text, LANGUAGES[src.lower()]).split('\n')
-        request.session['show_modal2'] = True
+        show_modal2 = True
 
 
     # Intercambiar lenguaje
