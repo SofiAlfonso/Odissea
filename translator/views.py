@@ -20,6 +20,7 @@ def text_translation(request):
     show_modal = False
     show_modal2 = False
     sugerencias_response = None
+    error= False
 
     # Redirigir a login si no ha iniciado sesión
     if not request.session.get('usuario_autenticado'):
@@ -53,7 +54,10 @@ def text_translation(request):
 
     # Traducir el texto
     if text:
-        totext = translate(src, dest, text)
+        try: 
+            totext = translate(src, dest, text)
+        except:
+            error= True
 
     # Limpiar las sesiones de texto extraído
     if 'extracted_text' in request.session:
@@ -74,7 +78,8 @@ def text_translation(request):
         'show_modal': show_modal,
         'last_language': dest,
         'show_modal2': show_modal2,
-        'sugerencias_response': sugerencias_response
+        'sugerencias_response': sugerencias_response,
+        'error': error
     })
 
 # Función para generar ejemplos

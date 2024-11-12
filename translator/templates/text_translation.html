@@ -221,8 +221,6 @@
         </div>
     </div>
 
-
-
     <!--Scripts-->
     {% if show_modal %}
     <script>
@@ -241,6 +239,11 @@
         </script>
     {% endif %}
     
+    {% if error %}
+        <script>
+            alert("No podemos realizar esta traducción por ahora.");
+        </script>
+    {% endif %}
     <script>
     document.getElementById('ttsButton').addEventListener('click', function() {
         const text = document.getElementById('outputText').value;  // Texto traducido
