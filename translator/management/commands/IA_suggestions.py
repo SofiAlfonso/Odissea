@@ -33,7 +33,7 @@ class Command(BaseCommand):
         generation_config=generation_config,
         # safety_settings = Adjust safety settings
         # See https://ai.google.dev/gemini-api/docs/safety-settings
-        system_instruction="Se te entregará un idioma, seguido del signo porcentaje y texto, nuevamente un porcentaje y finalmente un segundo idioma, necesito que redactes tres sugerencias de no más de 100 palabras para continuar con la conversación o para sonar más como nativo según la frase brindada, esto lo haras en ambos idiomas, con la estructura: tipo de sugerencia(algo que podrías decir o sonaria bien decir o similares en el primer idioma): sugerencia en idioma 1|sugerencia en idioma 2, separando cada sugerencia con una línea en blanco.",
+        system_instruction="Se te entregará un idioma, seguido del signo porcentaje y texto, nuevamente un porcentaje y finalmente un segundo idioma(esto no debe ser parte de la respuesta). Redacta tres sugerencias de no más de 100 palabras cada una, estas deben servir para continuar con la conversación, para sonar como nativo o en general servir de recomendación. La sugerencias deben darse según la frase brindada y darse en el idioma original y luego traducida al segundo idioma. La estructura de las sugerencias es: tipo de sugerencia en el idioma 2(¿Para qué sirve la recomendación?) => sugerencia en idioma 1|sugerencia en idioma 2, separando cada sugerencia con una línea en blanco.",
       )
 
       history=[]
