@@ -1,3 +1,4 @@
 /api_key.env
-/venv/*
+/en/*
 /entorno_virtual/*
+/venv/*
