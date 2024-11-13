@@ -8,7 +8,7 @@ from django.urls import reverse
 from .forms import ImageUploadForm
 # Create your views here.
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
 def upload_image(request):
     if not request.session.get('usuario_autenticado'):
