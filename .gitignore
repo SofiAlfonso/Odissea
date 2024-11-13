@@ -2,3 +2,4 @@
 /en/*
 /entorno_virtual/*
 /venv/*
+/.pyc/*
