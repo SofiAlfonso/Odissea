@@ -45,6 +45,7 @@
             margin-bottom: 20px;
             align-items: center;
             padding-right:2%;
+            
         }
         .form-group label {
             display: block;
@@ -88,6 +89,40 @@
             text-align: center;
             margin-top: 20px;
         }
+        .form
+        {
+            display:flex;
+            flex-direction:column;
+            gap: 10px;
+        }
+        .superior
+        {
+            width: 100%;
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-left: 0%;
+        }
+        .superior button
+        {
+            color: rgb(238, 39, 149);
+            border: none;
+            cursor: pointer;
+            transition: color 0.5s ease;
+        }
+        .superior button:hover
+        {
+            color:rgb(134, 18, 81);;
+        }
+        .pair
+        {
+            display:flex;
+            flex-direction: row;
+            justify-content: end;
+            gap:2px;
+            
+        }
+       
     </style>
 </head>
 <body>
@@ -98,11 +133,18 @@
             <h1 font="sans-serif">Cada lengua es una nueva Odisea</h1>
         </header>
         <form action="" method="GET">
-            <br><br><label for="origin_language">Lengua de origen: {{src}} </label><br><br>
+            <div class="superior">
+                <label for="origin_language">Lengua de origen: {{src}} </label>
+                <button id="cambio_lengua" name="cambio_lengua" type="submit" value="intercambiar" class="btn btn-link" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
+                    </svg>
+                </button>
+            </div>
             <div class="form-group">
                 <label for="inputText">Texto para traducir:</label>
                 <textarea id="inputText" placeholder="Escribe el texto aquí..." name="inputText">{{text}}</textarea>
-            </div><br><br>
+            </div>
 
             <label for="destination_language">Lengua de destino: </label>
             <select name="destination_language" id="destination_language">
@@ -110,24 +152,39 @@
                     <option value="{{key}}" type="submit" {% if key == last_language %}selected{% endif %}>{{value}}</option>
                 {% endfor %}
             </select>
-
-            <br><br>
             
             <div class="form-group">
                 <label for="outputText">Texto traducido:</label>
                 <textarea id="outputText" placeholder="El texto traducido aparecerá aquí..." readonly name="outputText">{{totext}}</textarea>
             </div>
-            <div class="form-group">
-                <button id="cambio_lengua" name="cambio_lengua" type="submit" value="intercambiar">Intercambiar lenguas</button>
-                
+            <div class="superior">
+                <!-- Botón para escuchar la traducción -->
+                <button id="ttsButton" class="btn btn-link" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-volume-up" viewBox="0 0 16 16">
+                        <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"/>
+                        <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"/>
+                        <path d="M10.025 8a4.5 4.5 0 0 1-1.318 3.182L8 10.475A3.5 3.5 0 0 0 9.025 8c0-.966-.392-1.841-1.025-2.475l.707-.707A4.5 4.5 0 0 1 10.025 8M7 4a.5.5 0 0 0-.812-.39L3.825 5.5H1.5A.5.5 0 0 0 1 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 7 12zM4.312 6.39 6 5.04v5.92L4.312 9.61A.5.5 0 0 0 4 9.5H2v-3h2a.5.5 0 0 0 .312-.11"/>
+                      </svg>
+                </button>
+                <!-- Reproductor de Audio para la Traducción -->
+                <audio id="audioPlayer" style="display:none;" controls>
+                    <source id="audioSource" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
             </div>
+                
             
             <div class="form-group">
                 <button id="translateButton">Traducir</button>
             </div>
 
-            <div class="form-group">
-                <button id="examples" value="examples"  name="examples" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Examples</button>
+            <div class="pair">
+                <div class="form-group">
+                    <button id="examples" value="examples"  name="examples" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Ejemplos</button>
+                </div>
+                <div class="form-group">
+                    <button id="sugerencias" value="sugerencias"  name="sugerencias" type="submit" data-bs-toggle="modal" data-bs-target="#sugerenciaModal">Sugerencias</button>
+                </div>
             </div>
         </form>
     </div>
@@ -147,6 +204,24 @@
             </div>
         </div>
     </div>
+    
+    <div class="modal fade" id="sugerenciaModal" tabindex="-1" aria-labelledby="sugerenciaModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="sugerenciaModallabel">Sugerencias</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% for a in sugerencias_response %}
+                    <p>{{a}}</p>
+                {% endfor %}
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Scripts-->
     {% if show_modal %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -155,20 +230,23 @@
         });
     </script>
     {% endif %}
-
-    <!-- Reproductor de Audio para la Traducción -->
-    <audio id="audioPlayer" style="display:none;" controls>
-        <source id="audioSource" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
+    {% if show_modal2 %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var sugerenciaModal = new bootstrap.Modal(document.getElementById('sugerenciaModal'));
+                sugerenciaModal.show();
+            });
+        </script>
+    {% endif %}
     
-    <!-- Botón para escuchar la traducción -->
-    <div class="form-group">
-        <button id="ttsButton">Escuchar Traducción</button>
-    </div>
-    
+    {% if error %}
+        <script>
+            alert("No podemos realizar esta traducción por ahora.");
+        </script>
+    {% endif %}
     <script>
-    document.getElementById('ttsButton').addEventListener('click', function() {
+    document.getElementById('ttsButton').addEventListener('click', function(event) {
+        event.preventDefault()
         const text = document.getElementById('outputText').value;  // Texto traducido
         const language = "{{ last_language|default:'en' }}";  // Obtener el idioma de destino
     

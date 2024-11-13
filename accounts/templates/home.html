@@ -1,14 +1,184 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
+{% block content %}
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ODISSEA-HOME</title>
+    <title>ODISSEA</title>
+    <style>
+      
+        .container {
+            padding: 3rem 2rem;
+        }
+
+
+        .about-us {
+            font-family: 'Fredoka One', cursive;
+            text-align: center;
+            padding: 3rem 0;
+            border-radius: 8px;
+            
+
+        }
+
+        .about-us-title {
+            font-weight: bold;
+            border-radius: 8px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .about-us h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffb6c1;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .about-us p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #ffb6c1;
+        margin-bottom: 2rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 8px;
+        font-family: 'Fredoka One', cursive;
+        }
+
+        .about-us img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .about-us-background {
+           
+            padding: 2rem;
+            border-radius: 8px; 
+            width: 100%;
+            box-shadow:  8px 0px 2px 0px #d621726f;
+        }
+
+
+        /* Team Section Styles */
+        .team-section {
+            text-align: center;
+            padding: 3rem 0;
+            border-radius: 8px; 
+            font-family: 'Fredoka One', cursive;
+
+            box-shadow:  8px 0px 2px 0px #d621726f;
+        }
+        .team-section h3 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 2rem;
+        }
+
+        .team-section .team-member {
+            margin-bottom: 2rem;
+        }
+
+        .team-section .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .team-section .team-member h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .team-section .team-member p {
+            font-size: 1rem;
+            color: #777;
+        }
+        .odissea
+        {
+            text-align: center;
+            font-family: 'Fredoka One', cursive;
+            padding: 3rem 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            /*disponer en fila los objetos*/
+            align-items: center;
+            /*espacio entre items*/
+            gap: 10rem;
+            
+
+            
+        }
+        .odissea img
+        {
+            width: 30%;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        .odissea p
+        {
+            color: #d32c96;
+        }
+
+    </style>
 </head>
 <body>
-   {% extends 'base.html' %}
-   {% block content %}
-   {% endblock content%}
-    
+   <div>
+        <div class="odissea">
+            <img src="{% static 'images/logo2.png' %}" class="img-fluid" alt="Odissea">
+            <p class="lead">
+                Cada lengua es una nueva odissea
+            </p>
+        </div>
+   </div>
+
+    <div class="container mt-5 about-us-background">
+        <div class="text-center">
+            <h1 class="display-4 about-us-title">Sobre Nosotros</h1>
+            <p class="lead">
+                Odissea se dedica a empoderar a los viajeros de todo el mundo ofreciendo soluciones innovadoras de traducción y reconocimiento de idiomas. Nuestro objetivo es ayudar a las personas a comprender y adaptarse a nuevos entornos, garantizando interacciones más fluidas, ya sea por negocios, ocio o para establecerse en un nuevo país. Únete a nosotros en este viaje para superar las barreras lingüísticas y conectar culturas.
+            </p>
+        </div>
+    </div>
+
+    <section class="team-section text-center my-5">
+        <h3>Nuestro Equipo</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-4 col-sm-6 my-3">
+                <div class="team-member">
+                    <img src="{% static 'images/Tomás.jpg' %}"  class="img-fluid mb-3  "  style="width: 150px; height: 150px; ">
+                    <h4>Tomás Gañan Rivera</h4>
+                    <p>Product Owner</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 my-3">
+                <div class="team-member">
+                    <img src="{% static 'images/sofi.jpg' %}"  class="img-fluid rounded-circle mb-3 " style="width: 150px; height: 150px;">
+                    <h4>Ana Sofía Alfonso</h4>
+                    <p>Scrum Master</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 my-3">
+                <div class="team-member">
+                    <img src="{% static 'images/david.jpg' %}"  class="img-fluid rounded-circle mb-3 border " style="width: 150px; height: 150px;">
+                    <h4>David Alejandro Ramírez</h4>
+                    <p>Team Member</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
 </body>
+{% endblock content%}
+    
 </html>
